@@ -1,0 +1,32 @@
+[
+  {
+    "tag": "QwertyFinger",
+    "id": 1,
+    "rank": 0,
+    "tier": 0
+  },
+  {
+    "tag": "Lockdown",
+    "id": 2,
+    "rank": 0,
+    "tier": 0
+  },
+  {
+    "tag": "DeathlyRiot",
+    "id": 3,
+    "rank": 0,
+    "tier": 0
+  },
+  {
+    "tag": "Milkshake",
+    "id": 4,
+    "rank": 0,
+    "tier": 0
+  },
+  {
+    "tag": "deathtouch_lifelink",
+    "id": 5,
+    "rank": 0,
+    "tier": 0
+  }
+]
