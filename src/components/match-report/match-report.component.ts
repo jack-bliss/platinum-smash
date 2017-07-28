@@ -24,13 +24,17 @@ export class MatchReportComponent implements OnInit {
         this.route.params.subscribe(players => {
 
             // map ID strings to integers
-            let playerIDs = Object.values(players).map(id => +id);
+            // let playerIDs = Object.entries(players).map(id => +id[1]);
+            let playerIDs = [];
+            for(var x in players){
+                playerIDs.push(players[x]);
+            }
             // get both players
             Promise.all(playerIDs.map(
                     id => this.playerService.getPlayer(id))
                 ).then(players => {
-                    this.player1 = players[0];
-                    this.player2 = players[1];
+                    this.player1 = <Player>players[0];
+                    this.player2 = <Player>players[1];
                     this.loading = false;
                 }
             );
