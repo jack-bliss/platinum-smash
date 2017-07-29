@@ -3,4 +3,6 @@ export class Player {
     tag: string;
     tier: number;
     rank: number;
+    maxRank: number;
+    tierName: number;
 }

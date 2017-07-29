@@ -9,16 +9,21 @@ import { AppComponent } from '../components/app/app.component';
 import { PlayerListComponent } from '../components/player-list/player-list.component';
 import { PlayerComponent } from '../components/player/player.component';
 import { MatchReportComponent } from '../components/match-report/match-report.component';
+import { ViewTiersComponent } from '../components/view-tiers/view-tiers.component';
+import { AddPlayerComponent } from '../components/add-player/add-player.component';
 
 import { PlayerService } from "../services/player.service";
 import { MatchService } from "../services/match.service";
+import { AuthService } from '../services/auth.service';
 
 @NgModule({
     declarations: [
         AppComponent,
         PlayerListComponent,
         PlayerComponent,
-        MatchReportComponent
+        MatchReportComponent,
+        ViewTiersComponent,
+        AddPlayerComponent
     ],
     imports: [
         BrowserModule,
@@ -28,7 +33,8 @@ import { MatchService } from "../services/match.service";
     ],
     providers: [
         PlayerService,
-        MatchService
+        MatchService,
+        AuthService
     ],
     bootstrap: [ AppComponent ]
 })

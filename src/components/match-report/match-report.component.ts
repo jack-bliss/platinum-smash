@@ -39,10 +39,11 @@ export class MatchReportComponent implements OnInit {
                 completedAt: 0,
             }
         }).then(response => {
-            return Promise.all([
-                this.playerService.playerWon(winner),
-                this.playerService.playerLost(loser)
-            ]);
+            return new Promise(resolve => {
+                this.playerService.playerWon(winner).then(response => {
+                     resolve(response);
+                });
+            })
         }).then(response => {
             console.log(response);
             this.router.navigate(['/players']);
