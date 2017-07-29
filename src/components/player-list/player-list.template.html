@@ -1,1 +1,6 @@
-<player *ngFor="let player of list" [player]="player"></player>
+<player
+    *ngFor="let player of list"
+    [selectable]="true"
+    [player]="player"
+    (click)=select(player.id)>
+</player>

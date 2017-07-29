@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Player } from '../../classes/player';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PlayerService } from "../../services/player.service"
+import { MatchService } from "../../services/match.service"
 
 @Component({
     selector: 'match-report',
@@ -12,12 +13,41 @@ export class MatchReportComponent implements OnInit {
 
     constructor(
         private playerService: PlayerService,
-        private route: ActivatedRoute
+        private matchService: MatchService,
+        private route: ActivatedRoute,
+        private router: Router
     ){ }
 
     player1: Player;
     player2: Player;
+    player1Score: number;
+    player2Score: number;
     loading: boolean = true;
+
+    submit(){
+        let winner = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
+        let loser = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
+        this.matchService.addMatch({
+            action: 'push',
+            data: {
+                player1Score: this.player1Score,
+                player2Score: this.player2Score,
+                player1Id: this.player1.id,
+                player2Id: this.player2.id,
+                winnerId: winner,
+                loserId: loser,
+                completedAt: 0,
+            }
+        }).then(response => {
+            return Promise.all([
+                this.playerService.playerWon(winner),
+                this.playerService.playerLost(loser)
+            ]);
+        }).then(response => {
+            console.log(response);
+            this.router.navigate(['/players']);
+        });
+    }
 
     ngOnInit(){
 
@@ -27,7 +57,7 @@ export class MatchReportComponent implements OnInit {
             // let playerIDs = Object.entries(players).map(id => +id[1]);
             let playerIDs = [];
             for(var x in players){
-                playerIDs.push(players[x]);
+                playerIDs.push(+players[x]);
             }
             // get both players
             Promise.all(playerIDs.map(

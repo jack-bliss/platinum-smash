@@ -1,11 +1,11 @@
 {
-  "compileOnSave": true,
+  "compileOnSave": false,
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": true,
-    "baseUrl": "src",
+    "baseUrl": "dist",
     "outDir": "./dist",
     "declaration": false,
     "emitDecoratorMetadata": true,

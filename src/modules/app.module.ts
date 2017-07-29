@@ -11,6 +11,7 @@ import { PlayerComponent } from '../components/player/player.component';
 import { MatchReportComponent } from '../components/match-report/match-report.component';
 
 import { PlayerService } from "../services/player.service";
+import { MatchService } from "../services/match.service";
 
 @NgModule({
     declarations: [
@@ -25,7 +26,10 @@ import { PlayerService } from "../services/player.service";
         HttpModule,
         RoutingModule
     ],
-    providers: [ PlayerService ],
+    providers: [
+        PlayerService,
+        MatchService
+    ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {}

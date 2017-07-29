@@ -1,4 +1,7 @@
-<div *ngIf="loading === false">
-    <player [player]="player1"></player>
-    <player [player]="player2"></player>
+<div *ngIf="loading === false" class='wrapper'>
+    <input type='number' [(ngModel)]='player1Score' class='player1Score' />
+    <player [player]="player1" class='player1'></player>
+    <input type='number' [(ngModel)]='player2Score' class='player2Score' />
+    <player [player]="player2" class='player2'></player>
+    <button (click)="submit()">Submit</button>
 </div>
