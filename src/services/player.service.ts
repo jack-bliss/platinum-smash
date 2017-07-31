@@ -2,11 +2,16 @@ import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers } from "@angular/http";
 import { Tiers } from '../constants/tiers';
 
+import { AuthService } from "./auth.service";
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class PlayerService{
-    constructor(private http: Http){ }
+    constructor(
+        private http: Http,
+        private authService: AuthService
+    ) { }
 
     getPlayers(){
         return this.http.get('/api/table/players').toPromise().then(players => {
@@ -39,7 +44,8 @@ export class PlayerService{
                 return this.http.post('/api/update/players', {
                     action: 'set',
                     id: player.id,
-                    data: player
+                    data: player,
+                    token: this.authService.token()
                 }, options).toPromise().then(response => {
                     return mainResolve(response.json());
                 });
@@ -69,7 +75,8 @@ export class PlayerService{
                 return this.http.post('/api/update/players', {
                     action: 'set',
                     id: player.id,
-                    data: player
+                    data: player,
+                    token: this.authService.token()
                 }, options).toPromise().then(response => {
                     return mainResolve(response.json());
                 });

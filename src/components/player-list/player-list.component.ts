@@ -21,6 +21,7 @@ export class PlayerListComponent implements OnInit {
 
     list: Player[];
     selected: number[] = [];
+    loggedIn: boolean = false;
 
     select(id){
         this.selected = [...this.selected, id];
@@ -47,11 +48,16 @@ export class PlayerListComponent implements OnInit {
         }
     }
 
+    logToken(){
+        console.log(this.authService.token());
+    }
+
     ngOnInit(){
         this.playerService.getPlayers().then(players => {
             this.list = players;
             this.sort('rank');
         });
+        this.loggedIn = this.authService.loggedIn();
     }
 
 }

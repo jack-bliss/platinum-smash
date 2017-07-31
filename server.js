@@ -7,7 +7,12 @@ const app = express();
 const database = __dirname + '/database/';
 let sessions = [];
 
-const ten_hours = 1000*60*60*10;
+const thirty_minutes = 1000 * 60 * 30;
+const twelve_hours = 1000*60*60*12;
+
+const session_expirer = setInterval(() => {
+    sessions = sessions.filter(session => session.expires <= Date.now());
+}, thirty_minutes);
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './dist')));
@@ -20,20 +25,22 @@ app.post('/api/auth', (req, res) => {
             resolve(password.trim());
         })
     }).then(password => {
+        console.log(password);
+        console.log(req.body.password);
         if(password === req.body.password){
 
-            let token = Math.random()*Math.pow(10, 18);
-            // make sure it's not already a token
-            while(sessions.indexOf(token) > -1){
-                token = Math.random()*Math.pow(10, 18);
+            let token;
+            let existing = [0];
+            while(existing.length){
+                token = Math.random() * Math.pow(10, 18);
+                existing = sessions.filter(session => session.token === token);
             }
-            sessions.push(token);
-            setTimeout(() => {
-                let index = sessions.indexOf(token);
-                sessions = sessions.filter(tkn => {
-                    tkn !== token;
-                });
-            }, ten_hours);
+            sessions.push({
+                token: token,
+                expires: Date.now() + twelve_hours
+            });
+
+            console.log('created new session, token: '+token);
 
             res.send(JSON.stringify({
                 "success": true,
@@ -41,7 +48,7 @@ app.post('/api/auth', (req, res) => {
             }));
 
         } else {
-
+            console.log('incorrect password');
             res.send(JSON.stringify({
                 "success": false
             }));
@@ -57,12 +64,19 @@ app.get('/api/table/:table', (req, res) => {
 });
 
 app.post('/api/update/:table', (req, res) => {
-    if(sessions.indexOf(/* user_token_via_cookie*/) === -1){
+    let session = sessions.filter(session => {
+        return session.token === req.body.token && session.expires >= Date.now();
+    });
+    console.log('attempting to update using token '+req.body.token);
+    if(session.length === 0){
+        console.log('token not found');
         return res.send(JSON.stringify({
             "success": false,
             "reason": "Invalid token"
         }));
     }
+    console.log('token found:');
+    console.log(session);
     let tableUrl = path.join(database, req.params.table + '.json');
     new Promise((resolve, reject) => {
 

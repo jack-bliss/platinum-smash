@@ -1,4 +1,6 @@
 <form (submit)="attemptLogin()">
     <label for="password">Password:</label>
     <input type="password" name="password" [(ngModel)]="password" />
+    <input type="submit" value="Log In" />
 </form>
+<div *ngIf="failed">Sorry, that's the wrong password.</div>

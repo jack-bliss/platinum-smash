@@ -5,6 +5,7 @@ import { PlayerListComponent }  from '../components/player-list/player-list.comp
 import { MatchReportComponent } from '../components/match-report/match-report.component';
 import { ViewTiersComponent }   from '../components/view-tiers/view-tiers.component';
 import { AddPlayerComponent }   from '../components/add-player/add-player.component';
+import { LogInComponent }       from "../components/log-in/log-in.component"
 
 const routes: Routes = [
     { path: '', redirectTo: '/players', pathMatch: 'full' },
@@ -27,6 +28,11 @@ const routes: Routes = [
     { path: 'add_player', children:
         [
             { path: '', component: AddPlayerComponent, pathMatch: 'full' }
+        ]
+    },
+    { path: 'login', children:
+        [
+            { path: '', component: LogInComponent, pathMatch: 'full' }
         ]
     }
 ];

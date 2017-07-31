@@ -4,11 +4,13 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 import 'rxjs/add/operator/toPromise';
 
+let loggedIn: boolean = false;
+let token: string = null;
+
+
 @Injectable()
 export class AuthService{
     constructor(private http: Http){ }
-
-    token: string;
 
     hash(string){
         return Md5.hashStr(string);
@@ -21,8 +23,19 @@ export class AuthService{
         return this.http.post('/api/auth', {
             password: password
         }, options).toPromise().then(response => {
+            let res = response.json();
+            loggedIn = res.success;
+            token = res.token;
             return response.json();
         });
+    }
+
+    loggedIn(){
+        return loggedIn;
+    }
+
+    token(){
+        return token;
     }
 
 }
