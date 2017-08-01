@@ -1,3 +1,4 @@
 /node_modules
 /database/password.txt
-.idea/workspaces.xml
+
+.idea/workspace.xml
