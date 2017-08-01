@@ -45,8 +45,11 @@ export class PlayerService{
                 return this.http.post('/api/update/players', {
                     action: 'set',
                     id: player.id,
-                    data: player,
-                    token: this.authService.token()
+                    data: {
+                        rank: player.rank,
+                        tier: player.tier
+                    },
+                    token: AuthService.token()
                 }, options).toPromise().then(response => {
                     return mainResolve(response.json());
                 });
@@ -75,8 +78,11 @@ export class PlayerService{
                 return this.http.post('/api/update/players', {
                     action: 'set',
                     id: player.id,
-                    data: player,
-                    token: this.authService.token()
+                    data: {
+                        rank: player.rank,
+                        tier: player.tier
+                    },
+                    token: AuthService.token()
                 }, options).toPromise().then(response => {
                     return mainResolve(response.json());
                 });
@@ -95,7 +101,7 @@ export class PlayerService{
                 rank: 0,
                 tier: 0
             },
-            token: this.authService.token()
+            token: AuthService.token()
         }, options).toPromise().then(response => {
             return Promise.resolve(response.json());
         });

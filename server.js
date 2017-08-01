@@ -25,8 +25,6 @@ app.post('/api/auth', (req, res) => {
             resolve(password.trim());
         })
     }).then(password => {
-        console.log(password);
-        console.log(req.body.password);
         if(password === req.body.password){
 
             let token;
@@ -40,21 +38,30 @@ app.post('/api/auth', (req, res) => {
                 expires: Date.now() + twelve_hours
             });
 
-            console.log('created new session, token: '+token);
-
             res.send(JSON.stringify({
                 "success": true,
                 "token": token
             }));
 
         } else {
-            console.log('incorrect password');
             res.send(JSON.stringify({
                 "success": false
             }));
 
         }
     })
+});
+
+app.post('/api/verify_token', (req, res) => {
+    let existing = sessions.filter(session => {
+        return session.token === req.body.token;
+    });
+    if(existing.length === 1){
+        existing[0].expires = Date.now() + twelve_hours;
+    }
+    res.send(JSON.stringify({
+        'success': existing.length === 1
+    }));
 });
 
 app.get('/api/table/:table', (req, res) => {
@@ -67,16 +74,12 @@ app.post('/api/update/:table', (req, res) => {
     let session = sessions.filter(session => {
         return session.token === req.body.token && session.expires >= Date.now();
     });
-    console.log('attempting to update using token '+req.body.token);
     if(session.length === 0){
-        console.log('token not found');
         return res.send(JSON.stringify({
             "success": false,
             "reason": "Invalid token"
         }));
     }
-    console.log('token found:');
-    console.log(session);
     let tableUrl = path.join(database, req.params.table + '.json');
     new Promise((resolve, reject) => {
 

@@ -1,0 +1,18 @@
+<div>
+    <h3>
+        <a routerLink="/players">Back to Players</a>
+    </h3>
+    <h1>Events:</h1>
+    <p>Select an event to use:</p>
+    <ul>
+        <li *ngFor="let event of events">
+            <a (click)="select(event.id)">{{event.name}}</a>
+            {{event.id === selected ? '<-' : ''}}
+        </li>
+    </ul>
+    <h1>Add Event:</h1>
+    <form (submit)='addEvent()'>
+        <label for='new_name'>Name:</label> <input type='text' id='new_name' name="new_name" [(ngModel)]='new_name' />
+        <input type='submit' value='Add' />
+    </form>
+</div>

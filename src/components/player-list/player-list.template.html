@@ -6,7 +6,10 @@
 </player>
 
 <div class='links'>
+    <div *ngIf="loggedIn">
+        <p><a routerLink='/add_player'>Register New Player</a></p>
+        <p><a routerLink='/events'>Tournaments</a></p>
+    </div>
     <p *ngIf="!loggedIn"><a routerLink='/login'>Log In</a></p>
-    <p *ngIf="loggedIn"><a routerLink='/add_player'>Register New Player</a></p>
     <p><a routerLink='/tiers'>Tier Descriptions</a></p>
 </div>

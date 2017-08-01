@@ -3,6 +3,8 @@ import { Player } from '../../classes/player';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlayerService } from "../../services/player.service"
 import { MatchService } from "../../services/match.service"
+import { EventService } from "../../services/event.service"
+import { AuthService } from "../../services/auth.service";
 
 @Component({
     selector: 'match-report',
@@ -14,6 +16,7 @@ export class MatchReportComponent implements OnInit {
     constructor(
         private playerService: PlayerService,
         private matchService: MatchService,
+        private eventService: EventService,
         private route: ActivatedRoute,
         private router: Router
     ){ }
@@ -23,21 +26,19 @@ export class MatchReportComponent implements OnInit {
     player1Score: number;
     player2Score: number;
     loading: boolean = true;
+    loggedIn: boolean = true;
+    noEvent: boolean = false;
 
     submit(){
         let winner = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
         let loser = this.player1Score > this.player2Score ? this.player2.id : this.player1.id;
         this.matchService.addMatch({
-            action: 'push',
-            data: {
-                player1Score: this.player1Score,
-                player2Score: this.player2Score,
-                player1Id: this.player1.id,
-                player2Id: this.player2.id,
-                winnerId: winner,
-                loserId: loser,
-                completedAt: 0,
-            }
+            player1Score: this.player1Score,
+            player2Score: this.player2Score,
+            player1Id: this.player1.id,
+            player2Id: this.player2.id,
+            winnerId: winner,
+            loserId: loser
         }).then(response => {
             const repWin = this.playerService.playerWon(winner);
             const repLoss = this.playerService.playerLost(loser);
@@ -48,6 +49,15 @@ export class MatchReportComponent implements OnInit {
     }
 
     ngOnInit(){
+
+        if(AuthService.loggedIn() !== true){
+            this.loggedIn = false;
+            return false;
+        }
+        if(EventService.selectedEvent() === null){
+            this.noEvent = true;
+            return false;
+        }
 
         this.route.params.subscribe(players => {
 

@@ -9,7 +9,9 @@
     grid-template-areas:
         "p1info p1score"
         "p2info p2score"
-        "submit submit";
+        "submit submit"
+        "cancel cancel";
+
     align-items: center;
 
     *{
@@ -34,6 +36,14 @@
         width: 160px;
         margin: 0 auto;
         padding: 5px;
+    }
+
+    p{
+        grid-area: cancel;
+        text-align: center;
+        a{
+            font-size: 16px;
+        }
     }
 
 }

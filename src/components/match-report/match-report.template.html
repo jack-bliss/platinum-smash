@@ -1,7 +1,14 @@
-<div *ngIf="loading === false" class='wrapper'>
+<div *ngIf="loading === false && loggedIn === true" class='wrapper'>
     <input type='number' [(ngModel)]='player1Score' class='player1Score' />
     <player [player]="player1" class='player1'></player>
     <input type='number' [(ngModel)]='player2Score' class='player2Score' />
     <player [player]="player2" class='player2'></player>
     <button (click)="submit()">Submit</button>
+    <p><a routerLink="/players">Cancel</a></p>
 </div>
+<h1 *ngIf="loggedIn === false">
+    <a routerLink="/login">Please Log In To Report Scores</a>
+</h1>
+<h1 *ngIf="noEvent === true">
+    <a routerLink="/events">Please Select An Event To Report Scores</a>
+</h1>

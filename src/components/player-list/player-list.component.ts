@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Component, OnInit } from "@angular/core";
 import { Player } from '../../classes/player';
@@ -13,9 +13,7 @@ import { AuthService } from '../../services/auth.service';
 export class PlayerListComponent implements OnInit {
 
     constructor(
-        private authService: AuthService,
         private playerService: PlayerService,
-        private route: ActivatedRoute,
         private router: Router
     ){ }
 
@@ -53,7 +51,7 @@ export class PlayerListComponent implements OnInit {
             this.list = players;
             this.sort('rank');
         });
-        this.loggedIn = this.authService.loggedIn();
+        this.loggedIn = AuthService.loggedIn();
     }
 
 }
