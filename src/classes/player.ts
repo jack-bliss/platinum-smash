@@ -4,5 +4,6 @@ export class Player {
     tier: number;
     rank: number;
     maxRank: number;
-    tierName: number;
+    tierName: string;
+    tierColor: string;
 }

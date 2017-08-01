@@ -26,7 +26,7 @@ export class MatchReportComponent implements OnInit {
 
     submit(){
         let winner = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
-        let loser = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
+        let loser = this.player1Score > this.player2Score ? this.player2.id : this.player1.id;
         this.matchService.addMatch({
             action: 'push',
             data: {
@@ -39,13 +39,10 @@ export class MatchReportComponent implements OnInit {
                 completedAt: 0,
             }
         }).then(response => {
-            return new Promise(resolve => {
-                this.playerService.playerWon(winner).then(response => {
-                     resolve(response);
-                });
-            })
+            const repWin = this.playerService.playerWon(winner);
+            const repLoss = this.playerService.playerLost(loser);
+            return Promise.all([repWin, repLoss]);
         }).then(response => {
-            console.log(response);
             this.router.navigate(['/players']);
         });
     }

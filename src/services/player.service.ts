@@ -18,7 +18,8 @@ export class PlayerService{
             return players.json().map(player => {
                 return Object.assign({}, player, {
                     tierName: Tiers[player.tier].name,
-                    maxRank: Tiers[player.tier].ranks
+                    maxRank: Tiers[player.tier].ranks,
+                    tierColor: Tiers[player.tier].color
                 })
             });
         });
@@ -56,7 +57,6 @@ export class PlayerService{
     playerLost(id){
         return new Promise(mainResolve => {
             this.getPlayer(id).then(player => {
-
                 if(Tiers[player.tier].cantloose){
                     return mainResolve({
                         "success": false,
@@ -94,7 +94,8 @@ export class PlayerService{
                 tag: tag,
                 rank: 0,
                 tier: 0
-            }
+            },
+            token: this.authService.token()
         }, options).toPromise().then(response => {
             return Promise.resolve(response.json());
         });

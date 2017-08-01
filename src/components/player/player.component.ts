@@ -10,23 +10,23 @@ export class PlayerComponent implements OnInit{
 
     @Input() player: Player;
     @Input() selectable: boolean = false;
-    class: string[] = ['player'];
+    cssClass: string[] = ['player'];
 
     prevent(e){
         e.preventDefault();
     }
 
     clicked(){
-        if(this.selectable && this.class.indexOf('selected') === -1){
-            this.class = [...this.class, 'selected'];
+        if(this.selectable && this.cssClass.indexOf('selected') === -1){
+            this.cssClass = [...this.cssClass, 'selected'];
         } else {
-            this.class = this.class.filter(c => c !== 'selected');
+            this.cssClass = this.cssClass.filter(c => c !== 'selected');
         }
     }
 
     ngOnInit(){
         if(this.selectable){
-            this.class = [...this.class, 'selectable'];
+            this.cssClass = [...this.cssClass, 'selectable'];
         }
     }
 }

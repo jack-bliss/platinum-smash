@@ -48,10 +48,6 @@ export class PlayerListComponent implements OnInit {
         }
     }
 
-    logToken(){
-        console.log(this.authService.token());
-    }
-
     ngOnInit(){
         this.playerService.getPlayers().then(players => {
             this.list = players;
