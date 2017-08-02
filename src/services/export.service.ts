@@ -18,8 +18,10 @@ export class ExportService{
                 this.playerService.getPlayers(),
                 this.matchService.getMatchesByEvent(id)
             ]).then(data => {
+                const matches:any = data[2];
                 let o = {
-                    matches: data[2].map(match => {
+                    name: data[0].name,
+                    matches: matches.map(match => {
                         return {
                             winner_id: match.winnerId,
                             loser_id: match.loserId,

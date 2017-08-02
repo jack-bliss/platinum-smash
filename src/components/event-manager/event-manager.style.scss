@@ -1,10 +1,20 @@
 div{
-  width: 60%;
+  width: 500px;
   margin: 0 auto;
+}
+form{
+  text-align: center;
 }
 ul{
   padding-left: 30px;
   li{
     margin: 5px 0;
+  }
+}
+.selected{
+  border: 1px solid #CC3333;
+  padding: 5px;
+  :not(&){
+    padding: 6px;
   }
 }

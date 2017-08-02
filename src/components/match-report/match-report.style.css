@@ -4,10 +4,14 @@
   margin: 0 auto;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 50px 50px 50px;
-  grid-template-areas: "p1info p1score" "p2info p2score" "submit submit" "cancel cancel";
+  grid-template-areas: "title  title  " "p1info p1score" "p2info p2score" "submit submit " "cancel cancel ";
   align-items: center; }
   .wrapper * {
-    font-size: 30px; }
+    font-size: 20px; }
+  .wrapper h3 {
+    grid-area: title;
+    text-align: center;
+    font-size: 25px; }
   .wrapper .player1Score {
     grid-area: p1score; }
   .wrapper .player2Score {

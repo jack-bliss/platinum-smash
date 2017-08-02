@@ -23,5 +23,6 @@ a{
     &:hover{
         color: white;
         background-color: $link-color;
+        cursor: pointer;
     }
 }

@@ -8,7 +8,7 @@ const database = __dirname + '/database/';
 let sessions = [];
 
 const thirty_minutes = 1000 * 60 * 30;
-const twelve_hours = 1000*60*60*12;
+const twelve_hours = thirty_minutes * 24;
 
 const session_expirer = setInterval(() => {
     sessions = sessions.filter(session => session.expires <= Date.now());

@@ -17,6 +17,7 @@ a {
   text-decoration: none; }
   a:hover {
     color: white;
-    background-color: #CC3333; }
+    background-color: #CC3333;
+    cursor: pointer; }
 
 /*# sourceMappingURL=app.styles.css.map */

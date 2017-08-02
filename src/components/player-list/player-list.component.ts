@@ -22,9 +22,11 @@ export class PlayerListComponent implements OnInit {
     loggedIn: boolean = false;
 
     select(id){
-        this.selected = [...this.selected, id];
-        if(this.selected.length === 2){
-            this.router.navigate(['/report', ...this.selected]);
+        if(this.loggedIn) {
+            this.selected = [...this.selected, id];
+            if (this.selected.length === 2) {
+                this.router.navigate(['/report', ...this.selected]);
+            }
         }
     }
 

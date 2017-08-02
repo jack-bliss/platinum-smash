@@ -25,8 +25,19 @@ export class EventManagerComponent implements OnInit {
     }
 
     exportEvent(id){
-        this.exportService.do(id).then(event => {
-            console.log(event);
+        this.exportService.do(id).then(eventJSON => {
+            let event:any = eventJSON;
+            const EventFileData = new Blob([JSON.stringify(event)], <BlobPropertyBag>{
+                encoding: 'UTF-8',
+                type: 'text/plain;charset=utf-8'
+            });
+            const EventFileUrl = window.URL.createObjectURL(EventFileData);
+            const d_a = document.createElement("a");
+            d_a.setAttribute("href", EventFileUrl);
+            d_a.setAttribute("download", event.name+".json");
+            const ev = document.createEvent("MouseEvents");
+            ev.initEvent("click", true, true);
+            d_a.dispatchEvent(ev);
         });
     }
 

@@ -28,6 +28,7 @@ export class MatchReportComponent implements OnInit {
     loading: boolean = true;
     loggedIn: boolean = true;
     noEvent: boolean = false;
+    event: string = '';
 
     submit(){
         let winner = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
@@ -57,6 +58,8 @@ export class MatchReportComponent implements OnInit {
         if(EventService.selectedEvent() === null){
             this.noEvent = true;
             return false;
+        } else {
+            this.event = EventService.selectedEvent().name;
         }
 
         this.route.params.subscribe(players => {

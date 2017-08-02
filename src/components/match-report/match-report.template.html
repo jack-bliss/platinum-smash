@@ -1,4 +1,5 @@
 <div *ngIf="loading === false && loggedIn === true" class='wrapper'>
+    <h3>Reporting for event {{event}}</h3>
     <input type='number' [(ngModel)]='player1Score' class='player1Score' />
     <player [player]="player1" class='player1'></player>
     <input type='number' [(ngModel)]='player2Score' class='player2Score' />
