@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c841dafe-3009-4045-81a1-ee3b323d1003" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/events.json" afterPath="$PROJECT_DIR$/database/events.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/matches.json" afterPath="$PROJECT_DIR$/database/matches.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/players.json" afterPath="$PROJECT_DIR$/database/players.json" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/constants/tiers.ts" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/main.bundle.js" afterPath="$PROJECT_DIR$/dist/main.bundle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/view-tiers/view-tiers.component.ts" afterPath="$PROJECT_DIR$/src/components/view-tiers/view-tiers.component.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -42,16 +44,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiers.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/constants/tiers.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="22" lean-forward="true" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="webpack.config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webpack.config.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -84,12 +76,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="players.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="players.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/players.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="104" lean-forward="true" selection-start-line="0" selection-start-column="104" selection-end-line="0" selection-end-column="104" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view-tiers.component.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/view-tiers/view-tiers.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -158,7 +162,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/polyfills.js" />
         <option value="$PROJECT_DIR$/src/main.ts" />
         <option value="$PROJECT_DIR$/webpack/webpack.config.js" />
         <option value="$PROJECT_DIR$/package.json" />
@@ -209,6 +212,7 @@
         <option value="$PROJECT_DIR$/database/matches.json" />
         <option value="$PROJECT_DIR$/database/events.json" />
         <option value="$PROJECT_DIR$/database/players.json" />
+        <option value="$PROJECT_DIR$/src/components/view-tiers/view-tiers.component.ts" />
       </list>
     </option>
   </component>
@@ -295,7 +299,8 @@
               <item name="platinum-smash" type="b2602c69:ProjectViewProjectNode" />
               <item name="platinum-smash" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="constants" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="view-tiers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="platinum-smash" type="b2602c69:ProjectViewProjectNode" />
@@ -363,16 +368,15 @@
       <workItem from="1501578949758" duration="1715000" />
       <workItem from="1501592484289" duration="2535000" />
       <workItem from="1501598240359" duration="6336000" />
-      <workItem from="1501673171068" duration="6685000" />
+      <workItem from="1501673171068" duration="6827000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33650000" />
+    <option name="totallyTimeSpent" value="33792000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -382,7 +386,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969216" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26216486" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26216486" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -412,7 +416,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dist/modules/app.module.js" />
     <entry file="file://$PROJECT_DIR$/dist/components/app.module.js" />
     <entry file="file://$PROJECT_DIR$/dist/main.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -804,6 +807,16 @@
         <state relative-caret-position="0">
           <caret line="0" column="104" lean-forward="true" selection-start-line="0" selection-start-column="104" selection-end-line="0" selection-end-column="104" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/view-tiers/view-tiers.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
