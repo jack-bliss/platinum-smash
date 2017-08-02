@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Http } from '@angular/http';
 import { EventService } from '../../services/event.service';
+import { ExportService } from '../../services/export.service';
 
 @Component({
     selector: 'event-manager',
@@ -15,13 +15,19 @@ export class EventManagerComponent implements OnInit {
 
     constructor(
         private eventService: EventService,
-        private http: Http
+        private exportService: ExportService
     ){ }
 
     select(id){
         this.selected = id;
         let event = this.events.filter(event => event.id === id)[0];
         EventService.selectEvent(event);
+    }
+
+    exportEvent(id){
+        this.exportService.do(id).then(event => {
+            console.log(event);
+        });
     }
 
     addEvent(){

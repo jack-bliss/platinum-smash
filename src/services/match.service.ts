@@ -19,6 +19,14 @@ export class MatchService{
         });
     }
 
+    getMatchesByEvent(id){
+        return new Promise(mainResolve => {
+            this.getMatches().then(matches => {
+                mainResolve(matches.filter(match => match.completedAt === id));
+            });
+        });
+    }
+
     addMatch(match){
         let fullMatch = Object.assign({}, match, {
             completedAt: EventService.selectedEvent().id

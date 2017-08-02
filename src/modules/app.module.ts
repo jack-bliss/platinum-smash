@@ -19,6 +19,7 @@ import { MatchService } from "../services/match.service";
 import { AuthService } from '../services/auth.service';
 import { CookieService } from '../services/cookie.service';
 import { EventService } from '../services/event.service';
+import { ExportService } from "../services/export.service";
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { EventService } from '../services/event.service';
         MatchService,
         AuthService,
         CookieService,
-        EventService
+        EventService,
+        ExportService
     ],
     bootstrap: [ AppComponent ]
 })

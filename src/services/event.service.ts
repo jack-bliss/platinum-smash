@@ -21,6 +21,12 @@ export class EventService{
         selectedEvent = event;
     }
 
+    getEvent(id){
+        return this.getEvents().then(events => {
+            return events.filter(event => event.id === id)[0];
+        });
+    }
+
     getEvents(){
         return this.http.get('/api/table/events').toPromise().then(events => {
             return events.json();

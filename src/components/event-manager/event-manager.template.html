@@ -6,8 +6,9 @@
     <p>Select an event to use:</p>
     <ul>
         <li *ngFor="let event of events">
+            {{event.id === selected ? '->' : ''}}
             <a (click)="select(event.id)">{{event.name}}</a>
-            {{event.id === selected ? '<-' : ''}}
+            <a (click)="exportEvent(event.id)">Export for QwertyStats</a>
         </li>
     </ul>
     <h1>Add Event:</h1>
