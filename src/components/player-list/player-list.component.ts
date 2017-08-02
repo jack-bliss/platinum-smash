@@ -17,7 +17,7 @@ export class PlayerListComponent implements OnInit {
         private router: Router
     ){ }
 
-    list: Player[];
+    list: any;
     selected: number[] = [];
     loggedIn: boolean = false;
 

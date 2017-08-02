@@ -33,14 +33,12 @@ export class EventService{
         });
     }
 
-    addEvent(name){
+    addEvent(info){
         let headers = new Headers({ 'Content-Type': 'application/json'});
         let options = new RequestOptions({ 'headers': headers });
         return this.http.post('/api/update/events', {
             action: 'push',
-            data: {
-                name: name
-            },
+            data: info,
             token: AuthService.token()
         }, options).toPromise().then(results => {
             return results.json();

@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 import { EventService } from '../../services/event.service';
 import { ExportService } from '../../services/export.service';
+import { PlayerService } from "../../services/player.service";
 
 @Component({
     selector: 'event-manager',
@@ -12,10 +14,14 @@ export class EventManagerComponent implements OnInit {
     events;
     selected;
     new_name;
+    new_tags;
+    with_tag;
 
     constructor(
         private eventService: EventService,
-        private exportService: ExportService
+        private exportService: ExportService,
+        private playerService: PlayerService,
+        private router: Router
     ){ }
 
     select(id){
@@ -42,10 +48,20 @@ export class EventManagerComponent implements OnInit {
     }
 
     addEvent(){
-        this.eventService.addEvent(this.new_name).then(response => {
+        this.eventService.addEvent({
+            name: this.new_name,
+            tags: this.new_tags.split(',').map(tag => tag.trim())
+        }).then(response => {
             this.loadEvents();
             this.new_name = '';
-        })
+            this.new_tags = '';
+        });
+    }
+
+    rebuild(){
+        this.playerService.rebuild(this.with_tag).then(response => {
+            this.router.navigate(['/players']);
+        });
     }
 
     loadEvents(){

@@ -19,6 +19,7 @@ export class ExportService{
                 this.matchService.getMatchesByEvent(id)
             ]).then(data => {
                 const matches:any = data[2];
+                const participants:any = data[1];
                 let o = {
                     name: data[0].name,
                     matches: matches.map(match => {
@@ -28,7 +29,7 @@ export class ExportService{
                             round: 0
                         }
                     }),
-                    participants: data[1].map(player => {
+                    participants: participants.map(player => {
                         return {
                             display_name: player.tag,
                             id: player.id

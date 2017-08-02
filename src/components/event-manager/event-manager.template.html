@@ -9,12 +9,19 @@
             'selected': event.id === selected
         }">
             <a (click)="select(event.id)">{{event.name}}</a> ||
+            <span>{{event.tags.join(', ')}}</span> ||
             <a (click)="exportEvent(event.id)">Export for QwertyStats</a>
         </li>
     </ul>
     <h1>Add Event:</h1>
     <form (submit)='addEvent()'>
-        <label for='new_name'>Name:</label> <input type='text' id='new_name' name="new_name" [(ngModel)]='new_name' />
+        <p><label for='new_name'>Name:</label> <input type='text' id='new_name' name='new_name' [(ngModel)]='new_name' /></p>
+        <p><label for='new_tags'>Tags:</label> <input type='text' id='new_tags' name='new_tags' [(ngModel)]='new_tags' /></p>
         <input type='submit' value='Add' />
+    </form>
+    <h1>Rebuild Ladder:</h1>
+    <form (submit)='rebuild()'>
+        <p><label for='with_tag'>Tag (optional):</label> <input type='text' id='with_tag' name='with_tag' [(ngModel)]='with_tag' /></p>
+        <input type='submit' value='Rebuild' />
     </form>
 </div>
