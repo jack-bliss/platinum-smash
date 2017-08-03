@@ -1,7 +1,12 @@
 <form (submit)="attemptLogin()">
     <h3>Log In to Report Matches, etc.</h3>
-    <label for="password">Password:</label>
-    <input type="password" name="password" [(ngModel)]="password" />
-    <input type="submit" value="Log In" />
+    <p>
+        <label for="password">Password:</label>
+        <input type="password" name="password" [(ngModel)]="password" />
+        <input type="submit" value="Log In" />
+    </p>
+    <p>
+        <a routerLink="/players">Cancel</a>
+    </p>
 </form>
 <div *ngIf="failed">Sorry, that's the wrong password.</div>
