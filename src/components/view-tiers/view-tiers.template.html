@@ -1,7 +1,7 @@
 <div *ngFor="let tier of tiers" class='tier'>
     <h2>{{tier.name}}</h2>
     <h3>Rank required for next tier: {{tier.ranks === -1 ? 'Endlesss Tier' : tier.ranks}}</h3>
-    <p>{{tier.desc}}</p>
+    <p>{{tier.description}}</p>
 </div>
 <div>
     <a routerLink='/players'>Back</a>

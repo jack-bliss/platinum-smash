@@ -50,7 +50,7 @@ export class EventManagerComponent implements OnInit {
     addEvent(){
         this.eventService.addEvent({
             name: this.new_name,
-            tags: this.new_tags.split(',').map(tag => tag.trim())
+            tags: this.new_tags
         }).then(response => {
             this.loadEvents();
             this.new_name = '';

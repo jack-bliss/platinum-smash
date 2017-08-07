@@ -23,9 +23,13 @@ export class PlayerListComponent implements OnInit {
 
     select(id){
         if(this.loggedIn) {
-            this.selected = [...this.selected, id];
-            if (this.selected.length === 2) {
-                this.router.navigate(['/report', ...this.selected]);
+            if(this.selected.indexOf(id) === -1){
+                this.selected = [...this.selected, id];
+                if (this.selected.length === 2) {
+                    this.router.navigate(['/report', ...this.selected]);
+                }
+            } else {
+                this.selected = [];
             }
         }
     }
