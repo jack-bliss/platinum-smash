@@ -1,0 +1,7 @@
+<h3><a routerLink="/players">Back To Players</a></h3>
+<div class="match" *ngFor="let match of matches">
+    <p class="event">{{match.eventname}} - {{match.completed}}</p>
+    <p class="p1">{{match.player1tag}} <span class="score">{{match.player1score}}</span></p>
+    <p class="dash">-</p>
+    <p class="p2"><span class="score">{{match.player2score}}</span> {{match.player2tag}}</p>
+</div>

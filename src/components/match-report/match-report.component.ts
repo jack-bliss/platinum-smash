@@ -39,7 +39,8 @@ export class MatchReportComponent implements OnInit {
             player1Id: this.player1.id,
             player2Id: this.player2.id,
             winnerId: winner,
-            loserId: loser
+            loserId: loser,
+            completed_at: Date.now()
         }).then(response => {
             const repWin = this.playerService.playerWon(winner);
             const repLoss = this.playerService.playerLost(loser);

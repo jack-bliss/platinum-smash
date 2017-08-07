@@ -40,8 +40,12 @@ app.use(express.static(path.join(__dirname, './dist')));
 const port = process.env.PORT || 3001;
 
 function loadSQLTable(table){
+    let q = 'SELECT * FROM ' +table;
+    if(table === 'matches'){
+        q += ' ORDER BY completed_at asc';
+    }
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM '+table)
+        pool.query(q)
             .then(response => {
                 return resolve(response.rows);
             })

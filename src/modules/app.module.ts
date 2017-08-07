@@ -13,6 +13,7 @@ import { ViewTiersComponent } from '../components/view-tiers/view-tiers.componen
 import { AddPlayerComponent } from '../components/add-player/add-player.component';
 import { LogInComponent } from "../components/log-in/log-in.component";
 import { EventManagerComponent } from "../components/event-manager/event-manager.component";
+import { ViewMatchesComponent } from "../components/view-matches/view-matches.component";
 
 import { PlayerService } from "../services/player.service";
 import { MatchService } from "../services/match.service";
@@ -31,7 +32,8 @@ import { TiersService } from "../services/tiers.service";
         ViewTiersComponent,
         AddPlayerComponent,
         LogInComponent,
-        EventManagerComponent
+        EventManagerComponent,
+        ViewMatchesComponent
     ],
     imports: [
         BrowserModule,
