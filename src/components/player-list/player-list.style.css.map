@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAAA,MAAM;EACF,UAAU,EAAE,MAAM;EAClB,MAAM,EAAE,QAAQ;EAChB,QAAC;IACG,MAAM,EAAE,KAAK",
-"sources": ["player-list.style.scss"],
+"mappings": "",
+"sources": [],
 "names": [],
 "file": "player-list.style.css"
 }

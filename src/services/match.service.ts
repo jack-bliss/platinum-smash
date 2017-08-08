@@ -13,6 +13,12 @@ export class MatchService{
         private eventService: EventService
     ) { }
 
+    deleteAndRebuild(id){
+        return this.http.get('/api/delete_match/'+id).toPromise().then(response => {
+            return response.json();
+        });
+    }
+
     getMatches(){
         return this.http.get('/api/table/matches').toPromise().then(matches => {
             return matches.json();

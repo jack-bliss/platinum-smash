@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatchService } from "../../services/match.service";
 import { PlayerService } from "../../services/player.service";
 import { EventService } from "../../services/event.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
     selector: 'view-matches',
@@ -10,13 +11,21 @@ import { EventService } from "../../services/event.service";
     templateUrl: './view-matches.template.html'
 })
 export class ViewMatchesComponent implements OnInit{
+
+    matches: any = [];
+    loggedIn = false;
+
     constructor(
         private matchService: MatchService,
         private playerService: PlayerService,
         private eventService: EventService
     ){ }
 
-    matches:any = [];
+    deleteMatch(id){
+        this.matchService.deleteAndRebuild(id).then(response => {
+            this.matches = this.matches.filter(match => match.id !== id);
+        });
+    }
 
     ngOnInit(){
 
@@ -25,6 +34,7 @@ export class ViewMatchesComponent implements OnInit{
             this.playerService.getPlayers(),
             this.eventService.getEvents()
         ]).then(response => {
+            this.loggedIn = AuthService.loggedIn();
             this.matches = response[0].map(match => {
                 const players:any = response[1];
                 const events:any = response[2];

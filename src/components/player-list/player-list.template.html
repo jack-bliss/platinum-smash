@@ -4,13 +4,3 @@
     [player]="player"
     (click)=select(player.id)>
 </player>
-
-<div class='links'>
-    <div *ngIf="loggedIn">
-        <p><a routerLink='/add_player'>Register New Player</a></p>
-        <p><a routerLink='/events'>Event Manager</a></p>
-    </div>
-    <p *ngIf="!loggedIn"><a routerLink='/login'>Log In</a></p>
-    <p><a routerLink='/tiers'>Tier Descriptions</a></p>
-    <p><a routerLink='/matches'>Match History</a></p>
-</div>

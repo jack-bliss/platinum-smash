@@ -14,12 +14,13 @@ export class PlayerListComponent implements OnInit {
 
     constructor(
         private playerService: PlayerService,
+        private authService: AuthService,
         private router: Router
     ){ }
 
     list: any;
     selected: number[] = [];
-    loggedIn: boolean = false;
+    loggedIn = false;
 
     select(id){
         if(this.loggedIn) {
@@ -58,6 +59,9 @@ export class PlayerListComponent implements OnInit {
             this.sort('rank');
         });
         this.loggedIn = AuthService.loggedIn();
+        this.authService.subscribeLogin(() => {
+            this.loggedIn = AuthService.loggedIn();
+        });
     }
 
 }

@@ -33,4 +33,11 @@
     grid-area: event;
     text-align: center;
   }
+  button{
+    color: #222222;
+    &:hover{
+      cursor: pointer;
+      color: #CC3333;
+    }
+  }
 }
