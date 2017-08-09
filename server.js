@@ -5,7 +5,7 @@ const app = express();
 
 const url = require('url');
 
-const { Pool, Client } = require('pg');
+const { Pool } = require('pg');
 const pg_params = url.parse(process.env.DATABASE_URL);
 const pg_auth = pg_params.auth.split(":");
 
@@ -43,6 +43,8 @@ function loadSQLTable(table){
     let q = 'SELECT * FROM ' +table;
     if(table === 'matches'){
         q += ' ORDER BY completed_at asc';
+    } else if(table === 'tiers'){
+
     }
     return new Promise((resolve, reject) => {
         pool.query(q)
@@ -135,8 +137,6 @@ app.post('/api/auth', (req, res) => {
 });
 
 app.post('/api/verify_token', (req, res) => {
-    console.log(req.body.token);
-    console.log(sessions);
     let existing = sessions.filter(session => {
         return session.token+''.trim() === req.body.token+''.trim();
     });
@@ -257,6 +257,9 @@ app.post('/api/update/:table', (req, res) => {
         }));
     }).catch(err => {
         console.error(err);
+        res.send(JSON.stringify({
+            "success": false
+        }))
     });
 
 });
