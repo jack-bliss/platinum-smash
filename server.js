@@ -147,7 +147,6 @@ app.post('/api/verify_token', (req, res) => {
     if(existing.length === 1){
         existing[0].expires = Date.now() + twelve_hours;
     }
-    console.log(existing);
     res.send(JSON.stringify({
         'success': existing.length === 1
     }));
@@ -256,10 +255,13 @@ app.post('/api/update/:table', (req, res) => {
             p = Promise.resolve(false);
     }
     p.then(result => {
+        console.log('success!!');
+        console.log(result);
         res.send(JSON.stringify({
             "success": true
         }));
     }).catch(err => {
+        console.log('failure. . . ');
         console.error(err);
         res.send(JSON.stringify({
             "success": false
