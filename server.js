@@ -5,7 +5,7 @@ const app = express();
 
 const url = require('url');
 
-const { Pool, Client } = require('pg');
+const { Pool } = require('pg');
 const pg_params = url.parse(process.env.DATABASE_URL);
 const pg_auth = pg_params.auth.split(":");
 
@@ -19,7 +19,7 @@ const pool = Pool({
 });
 
 pool.on('error', (err, client) => {
-    console.log(err);
+    console.error(err);
     console.log(client);
 });
 
@@ -43,6 +43,8 @@ function loadSQLTable(table){
     let q = 'SELECT * FROM ' +table;
     if(table === 'matches'){
         q += ' ORDER BY completed_at asc';
+    } else if(table === 'tiers'){
+
     }
     return new Promise((resolve, reject) => {
         pool.query(q)
@@ -140,28 +142,46 @@ app.post('/api/auth', (req, res) => {
 
 app.post('/api/verify_token', (req, res) => {
     let existing = sessions.filter(session => {
-        return session.token === req.body.token;
+        return session.token+''.trim() === req.body.token+''.trim();
     });
     if(existing.length === 1){
         existing[0].expires = Date.now() + twelve_hours;
     }
+    console.log(existing);
     res.send(JSON.stringify({
         'success': existing.length === 1
     }));
 });
 
-app.get('/api/rebuild_players/:tag?', (req, res) => {
+app.get('/api/delete_match/:id', (req, res) => {
+    pool.query('DELETE FROM matches WHERE id='+req.params.id)
+        .then(response => {
+            return buildLadder()
+        }, err => {
+            res.send(JSON.stringify({
+                'success': false,
+                'error': err
+            }))
+        })
+        .then(response => {
+            res.send(JSON.stringify({
+                'success': true
+            }))
+        });
+});
 
-    Promise.all(['events', 'matches', 'players', 'tiers'].map(loadSQLTable)).then(data => {
+function buildLadder(tag){
+
+    return Promise.all(['events', 'matches', 'players', 'tiers'].map(loadSQLTable)).then(data => {
 
         let events  = data[0];
         let matches = data[1];
         let players = data[2];
         let tiers   = data[3];
 
-        if(req.params.tag){
-            let eventIDs = events.filter(event => event.tags.split(', ').indexOf(req.params.tag) > -1).map(event => event.id);
-            matches = matches.filter(match => eventIDs.indexOf(match.completedAt) > -1);
+        if(tag){
+            let eventIDs = events.filter(event => event.tags.split(', ').indexOf(tag) > -1).map(event => event.id);
+            matches = matches.filter(match => eventIDs.indexOf(match.eventid) > -1);
         }
 
         players = players.map(player => {
@@ -193,7 +213,12 @@ app.get('/api/rebuild_players/:tag?', (req, res) => {
             return updateSQL('players', player.id, player);
         }));
 
-    }).then(() => {
+    })
+}
+
+app.get('/api/rebuild_players/:tag?', (req, res) => {
+
+    buildLadder(req.params.tag).then(() => {
         res.send(JSON.stringify({
             success: true
         }))
@@ -236,6 +261,9 @@ app.post('/api/update/:table', (req, res) => {
         }));
     }).catch(err => {
         console.error(err);
+        res.send(JSON.stringify({
+            "success": false
+        }))
     });
 
 });

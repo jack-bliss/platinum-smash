@@ -25,5 +25,10 @@
   .match .event {
     grid-area: event;
     text-align: center; }
+  .match button {
+    color: #222222; }
+    .match button:hover {
+      cursor: pointer;
+      color: #CC3333; }
 
 /*# sourceMappingURL=view-matches.style.css.map */

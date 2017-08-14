@@ -4,7 +4,7 @@
     <player [player]="player1" class='player1'></player>
     <input type='number' [(ngModel)]='player2Score' class='player2Score' />
     <player [player]="player2" class='player2'></player>
-    <button (click)="submit()">Submit</button>
+    <button (click)="submit()" [disabled]="submitting">Submit</button>
     <p><a routerLink="/players">Cancel</a></p>
 </div>
 <h1 *ngIf="loggedIn === false">

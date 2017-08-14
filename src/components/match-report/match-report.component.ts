@@ -29,25 +29,29 @@ export class MatchReportComponent implements OnInit {
     loggedIn: boolean = true;
     noEvent: boolean = false;
     event: string = '';
+    submitting: boolean = false;
 
     submit(){
-        let winner = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
-        let loser = this.player1Score > this.player2Score ? this.player2.id : this.player1.id;
-        this.matchService.addMatch({
-            player1Score: this.player1Score,
-            player2Score: this.player2Score,
-            player1Id: this.player1.id,
-            player2Id: this.player2.id,
-            winnerId: winner,
-            loserId: loser,
-            completed_at: Date.now()
-        }).then(response => {
-            const repWin = this.playerService.playerWon(winner);
-            const repLoss = this.playerService.playerLost(loser);
-            return Promise.all([repWin, repLoss]);
-        }).then(response => {
-            this.router.navigate(['/players']);
-        });
+        if(!this.submitting){
+            this.submitting = true;
+            let winner = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
+            let loser = this.player1Score > this.player2Score ? this.player2.id : this.player1.id;
+            this.matchService.addMatch({
+                player1Score: this.player1Score,
+                player2Score: this.player2Score,
+                player1Id: this.player1.id,
+                player2Id: this.player2.id,
+                winnerId: winner,
+                loserId: loser,
+                completed_at: Date.now()
+            }).then(response => {
+                const repWin = this.playerService.playerWon(winner);
+                const repLoss = this.playerService.playerLost(loser);
+                return Promise.all([repWin, repLoss]);
+            }).then(response => {
+                this.router.navigate(['/players']);
+            });
+        }
     }
 
     ngOnInit(){
@@ -68,7 +72,7 @@ export class MatchReportComponent implements OnInit {
             // map ID strings to integers
             // let playerIDs = Object.entries(players).map(id => +id[1]);
             let playerIDs = [];
-            for(var x in players){
+            for(let x in players){
                 playerIDs.push(+players[x]);
             }
             // get both players

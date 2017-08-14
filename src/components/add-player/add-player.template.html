@@ -1,5 +1,5 @@
 <form (submit)='addPlayer()'>
     <h3>Register New Player</h3>
-    <label for='tag'>Tag:</label> <input type='text' name='tag' [(ngModel)]='tag' />
-    <input type='submit' value='Add' />
+    <label for='tag'>Tag:</label> <input type='text' name='tag' id="tag" [(ngModel)]='tag' />
+    <input type='submit' value='Add' [disabled]="submitting" />
 </form>

@@ -10,17 +10,20 @@ import { PlayerService } from '../../services/player.service';
 })
 export class AddPlayerComponent{
 
+    tag: string = '';
+    submitting = false;
+
     constructor(
         private playerService: PlayerService,
         private router: Router
     ){ }
 
-    tag: string = '';
-
     addPlayer(){
-        this.playerService.addPlayer(this.tag).then(response => {
-            console.log(response);
-            this.router.navigate(['/players']);
-        })
+        if(!this.submitting){
+            this.playerService.addPlayer(this.tag).then(response => {
+                console.log(response);
+                this.router.navigate(['/players']);
+            });
+        }
     }
 };

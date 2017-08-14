@@ -12,11 +12,12 @@ let token: number = null;
 
 @Injectable()
 export class AuthService{
+
+    subscriptions: any[] = [];
+
     constructor(
         private http: Http
-    ){
-
-    }
+    ){ }
 
     checkCookies(){
         return new Promise((resolve, reject) => {
@@ -31,8 +32,9 @@ export class AuthService{
                         loggedIn = true;
                         token = cookieToken;
                         CookieService.set('token', cookieToken, {
-                            'max-age': 43200
+                            'max-age': '43200'
                         });
+                        this.resolveSubs();
                     }
                     resolve(true);
                 });
@@ -60,6 +62,7 @@ export class AuthService{
                 CookieService.set('token', token, {
                     'max-age': '43200'
                 });
+                this.resolveSubs();
             }
             return response.json();
         });
@@ -67,6 +70,18 @@ export class AuthService{
 
     static loggedIn(){
         return loggedIn;
+    }
+
+    subscribeLogin(s){
+        this.subscriptions.push(s);
+    }
+
+    resolveSubs(){
+        this.subscriptions.forEach(sub => {
+            if(typeof sub === 'function'){
+                sub();
+            }
+        })
     }
 
     static token(){

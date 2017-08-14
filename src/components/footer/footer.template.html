@@ -1,0 +1,10 @@
+<div class='links'>
+    <div *ngIf="loggedIn">
+        <p *ngIf="currentRoute !== 'add_player'"><a routerLink='/add_player'>Register New Player</a></p>
+        <p *ngIf="currentRoute !== 'events'"><a routerLink='/events'>Event Manager</a></p>
+    </div>
+    <p *ngIf="!loggedIn && currentRoute !== 'login'"><a routerLink='/login'>Log In</a></p>
+    <p *ngIf="currentRoute !== 'matches'"><a routerLink='/matches'>Match History</a></p>
+    <p *ngIf="currentRoute !== 'players'"><a routerLink='/players'>Player List</a></p>
+    <p *ngIf="currentRoute !== 'tiers'"><a routerLink='/tiers'>Tier Descriptions</a></p>
+</div>
