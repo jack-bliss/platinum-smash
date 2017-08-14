@@ -56,6 +56,7 @@ function loadSQLTable(table){
 function insertSQL(table, row){
     let qu = 'INSERT INTO '+table;
     qu += ' (';
+
     qu += Object.keys(row).map(key => {
         if(key === 'completedAt'){
             return 'eventid';
@@ -64,7 +65,10 @@ function insertSQL(table, row){
         }
     }).join(', ');
     qu += ') VALUES(';
-    qu += Object.values(row).map(val => {
+
+    qu += Object.keys(row).map(key => {
+        return row[key];
+    }).map(val => {
         if(Array.isArray(val)){
             return "'" + val.join(", ") + "'";
         } else if(typeof val === 'string'){
@@ -227,7 +231,6 @@ app.post('/api/update/:table', (req, res) => {
             p = Promise.resolve(false);
     }
     p.then(result => {
-        console.log(result);
         res.send(JSON.stringify({
             "success": true
         }));
