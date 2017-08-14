@@ -72,9 +72,9 @@ function insertSQL(table, row){
         return row[key];
     }).map(val => {
         if(Array.isArray(val)){
-            return ("'" + val.join(", ") + "'").replace(/\'/g, "''");
+            return "'" + (val.join(", ")).replace(/\'/g, "''") + "'";
         } else if(typeof val === 'string'){
-            return ("'"+val+"'").replace(/\'/g, "''");
+            return "'"+(val).replace(/\'/g, "''")+"'";
         } else {
             return val;
         }
