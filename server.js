@@ -80,6 +80,7 @@ function insertSQL(table, row){
         }
     }).join(', ');
     qu += ');';
+    console.log(qu);
     return new Promise((resolve, reject) => {
         pool.query(qu)
             .then(response => resolve(response))
@@ -261,7 +262,6 @@ app.post('/api/update/:table', (req, res) => {
             "success": true
         }));
     }).catch(err => {
-        console.log('failure. . . ');
         console.error(err);
         res.send(JSON.stringify({
             "success": false
