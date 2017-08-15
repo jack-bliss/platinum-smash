@@ -90,7 +90,8 @@ function insertSQL(table, row){
 function updateSQL(table, id, row){
     let qu = 'UPDATE '+table+' ';
     qu += 'SET ';
-    qu += Object.entries(row).map((pair, ind) => {
+    qu += Object.keys(row).map(key => {
+        let pair = [key, row[key]];
         let s = pair[0] + '=';
         if(typeof pair[1] === 'string'){
             s += "'"+pair[1]+"'";
