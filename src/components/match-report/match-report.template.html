@@ -1,10 +1,25 @@
 <div *ngIf="loading === false && loggedIn === true" class='wrapper'>
     <h3>Reporting for event {{event}}</h3>
-    <input type='number' [(ngModel)]='player1Score' class='player1Score' />
+
+    <div class="player1Score playerscore">
+        <button (click)="player1Score = 0" [ngClass]="player1Score === 0 ? 'selected' : ''">0</button>
+        <button (click)="player1Score = 1" [ngClass]="player1Score === 1 ? 'selected' : ''">1</button>
+        <button (click)="player1Score = 2" [ngClass]="player1Score === 2 ? 'selected' : ''">2</button>
+        <button (click)="player1Score = 3" [ngClass]="player1Score === 3 ? 'selected' : ''">3</button>
+    </div>
+
     <player [player]="player1" class='player1'></player>
-    <input type='number' [(ngModel)]='player2Score' class='player2Score' />
+
+    <div class="player2Score playerscore">
+        <button (click)="player2Score = 0" [ngClass]="player2Score === 0 ? 'selected' : ''">0</button>
+        <button (click)="player2Score = 1" [ngClass]="player2Score === 1 ? 'selected' : ''">1</button>
+        <button (click)="player2Score = 2" [ngClass]="player2Score === 2 ? 'selected' : ''">2</button>
+        <button (click)="player2Score = 3" [ngClass]="player2Score === 3 ? 'selected' : ''">3</button>
+    </div>
+
     <player [player]="player2" class='player2'></player>
-    <button (click)="submit()" [disabled]="submitting">Submit</button>
+    <button class="submit" *ngIf="too_many === false" (click)="submit()" [disabled]="submitting">Submit</button>
+    <p *ngIf="too_many === true" class="message">Those players have played each other too many times!</p>
     <p><a routerLink="/players">Cancel</a></p>
 </div>
 <h1 *ngIf="loggedIn === false">

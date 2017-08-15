@@ -38,10 +38,15 @@
         grid-area: p2info;
     }
 
-    button{
+    button.submit{
         grid-area: submit;
         width: 160px;
         margin: 0 auto;
+        padding: 5px;
+    }
+    .message{
+        grid-area: submit;
+        text-align: center;
         padding: 5px;
     }
 
@@ -50,6 +55,21 @@
         text-align: center;
         a{
             font-size: 16px;
+        }
+    }
+
+    .playerscore button{
+        width: 26px;
+        height: 26px;
+        border-radius: 13px;
+        background-color: white;
+        color: black;
+        outline: none;
+        border: 1px solid black;
+        cursor: pointer;
+        &.selected{
+            background-color: green;
+            color: white;
         }
     }
 
