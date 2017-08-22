@@ -7,7 +7,7 @@ const contentful = require('contentful');
 
 const cEventClient = contentful.createClient({
     space: 'yt3y05y0gcz1',
-    accessToken: 'be13469446308b1a256c0dba2ee65e414ff2cbacb95acdf00387ca61aba7d7b3'
+    accessToken: process.env.CONTENTFUL_KEY
 });
 
 const url = require('url');
