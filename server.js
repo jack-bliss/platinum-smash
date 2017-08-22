@@ -3,6 +3,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 
+const contentful = require('contentful');
+
+const cEventClient = contentful.createClient({
+    space: 'yt3y05y0gcz1',
+    accessToken: 'be13469446308b1a256c0dba2ee65e414ff2cbacb95acdf00387ca61aba7d7b3'
+});
+
 const url = require('url');
 
 const { Pool } = require('pg');
@@ -264,6 +271,25 @@ app.post('/api/update/:table', (req, res) => {
         }))
     });
 
+});
+
+app.get('/api/contentful/events', (req, res) => {
+    cEventClient.getEntries({
+        "content_type": "event",
+        "order": "fields.date"
+    }).then(response => {
+        const events = response.items.map(item => {
+            return item.fields;
+        });
+        res.send(JSON.stringify(events));
+    });
+});
+
+app.get('/stats', (req, res) => {
+    res.redirect('http://jackbliss.co.uk/brighton-glicko');
+});
+app.get('/fb', (req, res) => {
+    res.redirect('https://www.facebook.com/BrightonStockSmash/');
 });
 
 app.get('*', (req, res) => {

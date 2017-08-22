@@ -5,7 +5,7 @@
     <input type='number' [(ngModel)]='player2Score' class='player2Score' />
     <player [player]="player2" class='player2'></player>
     <button (click)="submit()" [disabled]="submitting">Submit</button>
-    <p><a routerLink="/players">Cancel</a></p>
+    <p><a routerLink="/league">Cancel</a></p>
 </div>
 <h1 *ngIf="loggedIn === false">
     <a routerLink="/login">Please Log In To Report Scores</a>

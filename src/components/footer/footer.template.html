@@ -5,6 +5,6 @@
     </div>
     <p *ngIf="!loggedIn && currentRoute !== 'login'"><a routerLink='/login'>Log In</a></p>
     <p *ngIf="currentRoute !== 'matches'"><a routerLink='/matches'>Match History</a></p>
-    <p *ngIf="currentRoute !== 'players'"><a routerLink='/players'>Player List</a></p>
-    <p *ngIf="currentRoute !== 'tiers'"><a routerLink='/tiers'>Tier Descriptions</a></p>
+    <p *ngIf="currentRoute !== 'league'"><a routerLink='/league'>Player List</a></p>
+    <p><a routerLink='/'>Home</a></p>
 </div>

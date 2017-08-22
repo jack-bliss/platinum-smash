@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RoutingModule } from "./routing.module";
 
 import { AppComponent } from '../components/app/app.component';
+import { HomeComponent } from '../components/home/home.component';
 import { PlayerListComponent } from '../components/player-list/player-list.component';
 import { PlayerComponent } from '../components/player/player.component';
 import { MatchReportComponent } from '../components/match-report/match-report.component';
@@ -27,6 +28,7 @@ import { TiersService } from "../services/tiers.service";
 @NgModule({
     declarations: [
         AppComponent,
+        HomeComponent,
         PlayerListComponent,
         PlayerComponent,
         MatchReportComponent,

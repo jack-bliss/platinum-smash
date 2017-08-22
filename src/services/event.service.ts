@@ -21,6 +21,12 @@ export class EventService{
         selectedEvent = event;
     }
 
+    getUpcomingEvents(){
+        return this.http.get('/api/contentful/events').toPromise().then(events => {
+            return events.json();
+        });
+    }
+
     getEvent(id){
         return this.getEvents().then(events => {
             return events.filter(event => event.id === id)[0];
