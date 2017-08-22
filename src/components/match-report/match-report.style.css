@@ -20,15 +20,31 @@
     grid-area: p1info; }
   .wrapper .player2 {
     grid-area: p2info; }
-  .wrapper button {
+  .wrapper button.submit {
     grid-area: submit;
     width: 160px;
     margin: 0 auto;
+    padding: 5px; }
+  .wrapper .message {
+    grid-area: submit;
+    text-align: center;
     padding: 5px; }
   .wrapper p {
     grid-area: cancel;
     text-align: center; }
     .wrapper p a {
       font-size: 16px; }
+  .wrapper .playerscore button {
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    background-color: white;
+    color: black;
+    outline: none;
+    border: 1px solid black;
+    cursor: pointer; }
+    .wrapper .playerscore button.selected {
+      background-color: green;
+      color: white; }
 
 /*# sourceMappingURL=match-report.style.css.map */

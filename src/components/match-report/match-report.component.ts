@@ -13,6 +13,17 @@ import { AuthService } from "../../services/auth.service";
 })
 export class MatchReportComponent implements OnInit {
 
+    player1: Player;
+    player2: Player;
+    player1Score: number;
+    player2Score: number;
+    loading = true;
+    loggedIn = true;
+    noEvent = false;
+    event = '';
+    submitting = false;
+    too_many = false;
+
     constructor(
         private playerService: PlayerService,
         private matchService: MatchService,
@@ -21,35 +32,36 @@ export class MatchReportComponent implements OnInit {
         private router: Router
     ){ }
 
-    player1: Player;
-    player2: Player;
-    player1Score: number;
-    player2Score: number;
-    loading: boolean = true;
-    loggedIn: boolean = true;
-    noEvent: boolean = false;
-    event: string = '';
-    submitting: boolean = false;
-
     submit(){
         if(!this.submitting){
             this.submitting = true;
             let winner = this.player1Score > this.player2Score ? this.player1.id : this.player2.id;
             let loser = this.player1Score > this.player2Score ? this.player2.id : this.player1.id;
-            this.matchService.addMatch({
-                player1Score: this.player1Score,
-                player2Score: this.player2Score,
-                player1Id: this.player1.id,
-                player2Id: this.player2.id,
-                winnerId: winner,
-                loserId: loser,
-                completed_at: Date.now()
+
+            this.matchService.countMatches(this.player1.id, this.player2.id).then(count => {
+                if(count < 5){
+                    return this.matchService.addMatch({
+                        player1Score: this.player1Score,
+                        player2Score: this.player2Score,
+                        player1Id: this.player1.id,
+                        player2Id: this.player2.id,
+                        winnerId: winner,
+                        loserId: loser,
+                        completed_at: Date.now()
+                    });
+                } else {
+                    return Promise.reject(false);
+                }
             }).then(response => {
                 const repWin = this.playerService.playerWon(winner);
                 const repLoss = this.playerService.playerLost(loser);
                 return Promise.all([repWin, repLoss]);
+            }, err => {
+                return Promise.reject(false);
             }).then(response => {
                 this.router.navigate(['/players']);
+            }, err => {
+                this.too_many = true;
             });
         }
     }

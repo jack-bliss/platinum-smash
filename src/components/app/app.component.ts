@@ -29,6 +29,5 @@ export class AppComponent implements OnInit {
         this.authService.checkCookies().then(data => {
             this.ready = true;
         });
-
     }
 };

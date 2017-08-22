@@ -19,6 +19,12 @@ export class MatchService{
         });
     }
 
+    countMatches(p1, p2){
+        return this.http.get('/api/count_matches/'+p1+'/'+p2).toPromise().then(response => {
+            return response.json().count;
+        });
+    }
+
     getMatches(){
         return this.http.get('/api/table/matches').toPromise().then(matches => {
             return matches.json();

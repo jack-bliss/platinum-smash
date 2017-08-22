@@ -49,9 +49,9 @@ const port = process.env.PORT || 3001;
 function loadSQLTable(table){
     let q = 'SELECT * FROM ' +table;
     if(table === 'matches'){
-        q += ' ORDER BY completed_at asc';
+        q += ' ORDER BY completed_at ASC';
     } else if(table === 'tiers'){
-
+        q += ' ORDER BY key ASC';
     }
     return new Promise((resolve, reject) => {
         pool.query(q)
@@ -97,7 +97,8 @@ function insertSQL(table, row){
 function updateSQL(table, id, row){
     let qu = 'UPDATE '+table+' ';
     qu += 'SET ';
-    qu += Object.entries(row).map((pair, ind) => {
+    qu += Object.keys(row).map(key => {
+        let pair = [key, row[key]];
         let s = pair[0] + '=';
         if(typeof pair[1] === 'string'){
             s += "'"+pair[1]+"'";
@@ -113,6 +114,11 @@ function updateSQL(table, id, row){
             .catch(err => reject(err));
     });
 }
+
+function countMatches(id1, id2){
+    return pool.query('SELECT COUNT(*) FROM matches WHERE (player1id='+id1+' AND player2id='+id2+') OR (player1id='+id2+' AND player2id='+id1+')');
+}
+
 
 app.post('/api/auth', (req, res) => {
     new Promise((resolve, reject) => {
@@ -151,6 +157,7 @@ app.post('/api/verify_token', (req, res) => {
     let existing = sessions.filter(session => {
         return session.token+''.trim() === req.body.token+''.trim();
     });
+
     if(existing.length === 1){
         existing[0].expires = Date.now() + twelve_hours;
     }
@@ -175,6 +182,20 @@ app.get('/api/delete_match/:id', (req, res) => {
             }))
         });
 });
+
+app.get('/api/count_matches/:id1/:id2', (req, res) => {
+    countMatches(req.params.id1, req.params.id2)
+        .then(response => {
+            res.send(JSON.stringify({
+                'success': true,
+                'count': parseInt(response.rows[0].count)
+            }))
+        }, err => {
+            res.send(JSON.stringify({
+                'success': false
+            }))
+        });
+})
 
 function buildLadder(tag){
 
@@ -207,10 +228,10 @@ function buildLadder(tag){
                 winner.tier++;
             }
             if(tiers[loser.tier].cantloose === false){
-                winner.rank--;
-                if(winner.rank < 0){
-                    winner.tier--;
-                    winner.rank = 0;
+                loser.rank--;
+                if(loser.rank < 0){
+                    loser.tier--;
+                    loser.rank = tiers[loser.tier].ranks;
                 }
             }
         });
@@ -259,7 +280,7 @@ app.post('/api/update/:table', (req, res) => {
             p = updateSQL(req.params.table, req.body.id, req.body.data);
             break;
         default:
-            p = Promise.resolve(false);
+            p = Promise.reject("Couldn't tell what you wanted me to do with that");
     }
     p.then(result => {
         res.send(JSON.stringify({
@@ -267,7 +288,8 @@ app.post('/api/update/:table', (req, res) => {
         }));
     }).catch(err => {
         res.send(JSON.stringify({
-            "success": false
+            "success": false,
+            "reason": err
         }))
     });
 
