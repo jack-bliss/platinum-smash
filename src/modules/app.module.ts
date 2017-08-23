@@ -24,6 +24,7 @@ import { CookieService } from '../services/cookie.service';
 import { EventService } from '../services/event.service';
 import { ExportService } from "../services/export.service";
 import { TiersService } from "../services/tiers.service";
+import { ContentfulService } from "../services/contentful.service";
 
 @NgModule({
     declarations: [
@@ -52,7 +53,8 @@ import { TiersService } from "../services/tiers.service";
         CookieService,
         EventService,
         ExportService,
-        TiersService
+        TiersService,
+        ContentfulService
     ],
     bootstrap: [ AppComponent ]
 })

@@ -5,7 +5,7 @@ const app = express();
 
 const contentful = require('contentful');
 
-const cEventClient = contentful.createClient({
+const contenfulClient = contentful.createClient({
     space: 'yt3y05y0gcz1',
     accessToken: process.env.CONTENTFUL_KEY
 });
@@ -296,7 +296,7 @@ app.post('/api/update/:table', (req, res) => {
 });
 
 app.get('/api/contentful/events', (req, res) => {
-    cEventClient.getEntries({
+    contenfulClient.getEntries({
         "content_type": "event",
         "order": "fields.date"
     }).then(response => {
@@ -305,6 +305,33 @@ app.get('/api/contentful/events', (req, res) => {
         });
         res.send(JSON.stringify(events));
     });
+});
+
+app.get('/api/contentful/lookup/:key', (req, res) => {
+    contenfulClient.getEntries({
+        "content_type": "lookup"
+    }).then(response => {
+        const value = response.items
+            .filter(item => {
+                return item.fields.key === req.params.key;
+            });
+        if(value.length !== 1) {
+            res.send(JSON.stringify({
+                success: false,
+                error: "Couldn't uniquely find the requested key."
+            }));
+        } else {
+            res.send(JSON.stringify({
+                success: true,
+                value: value[0].fields.value
+            }));
+        }
+    }, err => {
+        res.send(JSON.stringify({
+            success: false,
+            error: "Couldn't uniquely find the requested key."
+        }));
+    })
 });
 
 app.get('/stats', (req, res) => {

@@ -8,16 +8,17 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, "dist/"),
-        filename: "[name].bundle.js",
+        filename: "[name].bundle.js"
     },
     resolve: {
-        extensions: ['.js', '.ts', '.html', '.css']
+        extensions: ['.js', '.ts', '.html', '.scss']
     },
     module: {
         loaders: [
-            { test: /\.ts$/,        use: [ 'awesome-typescript-loader', 'angular2-template-loader' ] },
-            { test: /\.html$/,      use: 'raw-loader' },
-            { test: /\.scss$/,       use: [ 'raw-loader', 'sass-loader' ] }
+            { test: /\.ts$/,                use: [ 'awesome-typescript-loader', 'angular2-template-loader' ] },
+            { test: /\.html$/,              use: 'raw-loader' },
+            { test: /\.scss$/,              use: [ 'raw-loader', 'sass-loader' ] },
+            { test: /\.(png|jpg|svg)$/,     use: 'file-loader' }
         ]
     },
     plugins: [

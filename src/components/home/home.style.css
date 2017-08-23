@@ -1,0 +1,17 @@
+.home {
+  width: 700px;
+  margin: 0 auto; }
+  .home img {
+    width: 500px;
+    margin: 0 auto;
+    display: block; }
+  .home h3 {
+    margin: 5px 0px;
+    text-align: left;
+    padding: 0px; }
+  .home ul {
+    margin: 0px 0px 30px; }
+    .home ul li {
+      margin-left: 20px; }
+
+/*# sourceMappingURL=home.style.css.map */

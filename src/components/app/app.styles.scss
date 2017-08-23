@@ -1,4 +1,4 @@
-$link-color: #CC3333;
+$link-color: #FFE033;
 
 h1, h3{
   padding: 10px;
@@ -12,17 +12,24 @@ h1, h3{
 
 html body{
   font-family: Helvetica, sans-serif;
-  background-color: #333;
-  color: #CCC;
+  background-color: #0193FC;
+  color: #333;
 }
 
 a{
-    color: $link-color;
-    padding: 0 3px;
-    text-decoration: none;
-    &:hover{
-        color: white;
-        background-color: $link-color;
-        cursor: pointer;
-    }
+  color: $link-color;
+  padding: 0 3px;
+  text-decoration: none;
+  &:hover{
+      color: #333;
+      background-color: $link-color;
+      cursor: pointer;
+  }
+  &[href^="http"], &[data-ext]{
+    padding-right: 20px;
+    background-image: url("/assets/images/external_link.svg");
+    background-size: 1em 1em;
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+  }
 }
