@@ -1,4 +1,13 @@
 <div class="{{cssClass.join(' ')}}" (click)="clicked()">
+    <p class="position">
+        {{player.position}}
+    </p>
+
     <h4>{{player.tag}}</h4>
-    <p [ngStyle]="{ color: player.tierColor }">{{player.tierName}} {{player.rank}}/{{player.maxRank}}</p>
+    <p class="wins">
+        {{player.wins.length}}
+    </p>
+    <p class="losses">
+        {{player.losses.length}}
+    </p>
 </div>

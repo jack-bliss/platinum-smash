@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { RoutingModule } from "./routing.module";
+import { TooltipModule } from "ng2-tooltip";
 
 import { AppComponent } from '../components/app/app.component';
 import { HomeComponent } from '../components/home/home.component';
@@ -16,6 +17,7 @@ import { LogInComponent } from "../components/log-in/log-in.component";
 import { EventManagerComponent } from "../components/event-manager/event-manager.component";
 import { ViewMatchesComponent } from "../components/view-matches/view-matches.component";
 import { FooterComponent } from "../components/footer/footer.component";
+import { FullStatsComponent } from '../components/full-stats/full-stats.component';
 
 import { PlayerService } from "../services/player.service";
 import { MatchService } from "../services/match.service";
@@ -38,13 +40,15 @@ import { ContentfulService } from "../services/contentful.service";
         LogInComponent,
         EventManagerComponent,
         ViewMatchesComponent,
-        FooterComponent
+        FooterComponent,
+        FullStatsComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
-        RoutingModule
+        RoutingModule,
+        TooltipModule
     ],
     providers: [
         PlayerService,

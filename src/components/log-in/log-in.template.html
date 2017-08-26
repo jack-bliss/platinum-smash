@@ -1,4 +1,8 @@
-<form (submit)="attemptLogin()">
+<div class="already" *ngIf="loggedIn">
+    You are already logged in.
+</div>
+
+<form (submit)="attemptLogin()" *ngIf="!loggedIn">
     <h3>Log In to Report Matches, etc.</h3>
     <p>
         <label for="password">Password:</label>
@@ -8,5 +12,5 @@
     <p>
         <a routerLink="/league">Cancel</a>
     </p>
+    <div class="warn" *ngIf="failed">Sorry, that's the wrong password.</div>
 </form>
-<div *ngIf="failed">Sorry, that's the wrong password.</div>

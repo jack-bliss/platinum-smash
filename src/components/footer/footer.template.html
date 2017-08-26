@@ -4,7 +4,8 @@
         <p *ngIf="currentRoute !== 'events'"><a routerLink='/events'>Event Manager</a></p>
     </div>
     <p *ngIf="!loggedIn && currentRoute !== 'login'"><a routerLink='/login'>Log In</a></p>
+    <p *ngIf="currentRoute !== 'league'"><a routerLink='/league'>League</a></p>
+    <p *ngIf="currentRoute !== 'full_stats'"><a routerLink='/league_stats'>Results Table</a></p>
     <p *ngIf="currentRoute !== 'matches'"><a routerLink='/matches'>Match History</a></p>
-    <p *ngIf="currentRoute !== 'league'"><a routerLink='/league'>Player List</a></p>
     <p><a routerLink='/'>Home</a></p>
 </div>

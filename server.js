@@ -1,8 +1,16 @@
+// UTIL
+const path = require('path');
+const url = require('url');
+
+// EXPRESS SERVER
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const app = express();
 
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, './dist')));
+
+// CONTENTFUL
 const contentful = require('contentful');
 
 const contenfulClient = contentful.createClient({
@@ -10,8 +18,17 @@ const contenfulClient = contentful.createClient({
     accessToken: process.env.CONTENTFUL_KEY
 });
 
-const url = require('url');
+// SESSIONS
+let sessions = [];
 
+const thirty_minutes = 1000 * 60 * 30;
+const twelve_hours = thirty_minutes * 24;
+
+const session_expirer = setInterval(() => {
+    sessions = sessions.filter(session => session.expires <= Date.now());
+}, thirty_minutes);
+
+// POSTGRES
 const { Pool } = require('pg');
 const pg_params = url.parse(process.env.DATABASE_URL);
 const pg_auth = pg_params.auth.split(":");
@@ -30,22 +47,7 @@ pool.on('error', (err, client) => {
     console.log(client);
 });
 
-
-const database = __dirname + '/database/';
-let sessions = [];
-
-const thirty_minutes = 1000 * 60 * 30;
-const twelve_hours = thirty_minutes * 24;
-
-const session_expirer = setInterval(() => {
-    sessions = sessions.filter(session => session.expires <= Date.now());
-}, thirty_minutes);
-
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, './dist')));
-
-const port = process.env.PORT || 3001;
-
+// sql helper functions
 function loadSQLTable(table){
     let q = 'SELECT * FROM ' +table;
     if(table === 'matches'){
@@ -119,7 +121,8 @@ function countMatches(id1, id2){
     return pool.query('SELECT COUNT(*) FROM matches WHERE (player1id='+id1+' AND player2id='+id2+') OR (player1id='+id2+' AND player2id='+id1+')');
 }
 
-
+// API
+// security
 app.post('/api/auth', (req, res) => {
     new Promise((resolve, reject) => {
         loadSQLTable('password').then(rows => {
@@ -166,6 +169,7 @@ app.post('/api/verify_token', (req, res) => {
     }));
 });
 
+// delete a match
 app.get('/api/delete_match/:id', (req, res) => {
     pool.query('DELETE FROM matches WHERE id='+req.params.id)
         .then(response => {
@@ -183,6 +187,7 @@ app.get('/api/delete_match/:id', (req, res) => {
         });
 });
 
+// count matches between players
 app.get('/api/count_matches/:id1/:id2', (req, res) => {
     countMatches(req.params.id1, req.params.id2)
         .then(response => {
@@ -195,8 +200,9 @@ app.get('/api/count_matches/:id1/:id2', (req, res) => {
                 'success': false
             }))
         });
-})
+});
 
+// rebuilding ladder
 function buildLadder(tag){
 
     return Promise.all(['events', 'matches', 'players', 'tiers'].map(loadSQLTable)).then(data => {
@@ -253,6 +259,46 @@ app.get('/api/rebuild_players/:tag?', (req, res) => {
 
 });
 
+// list all players with wins/losses
+app.get('/api/players', (req, res) => {
+    var grid = {
+        wins: {},
+        losses: {}
+    };
+    loadSQLTable('matches')
+        .then(matches => {
+            for(var i = 0; i < matches.length; i++){
+                if(grid.wins.hasOwnProperty(matches[i].winnerid)){
+                    grid.wins[matches[i].winnerid].push(matches[i].loserid);
+                } else {
+                    grid.wins[matches[i].winnerid] = [matches[i].loserid];
+                }
+
+                if(grid.losses.hasOwnProperty(matches[i].loserid)){
+                    grid.losses[matches[i].loserid].push(matches[i].winnerid);
+                } else {
+                    grid.losses[matches[i].loserid] = [matches[i].winnerid];
+                }
+            }
+            return loadSQLTable('players');
+        }).then(players => {
+            for(var i = 0; i < players.length; i++){
+                if(grid.wins.hasOwnProperty(players[i].id)){
+                    players[i].wins = grid.wins[players[i].id];
+                } else {
+                    players[i].wins = [];
+                }
+                if(grid.losses.hasOwnProperty(players[i].id)){
+                    players[i].losses = grid.losses[players[i].id];
+                } else {
+                    players[i].losses = [];
+                }
+            }
+            res.send(JSON.stringify(players));
+        });
+});
+
+// dump a psql tablle
 app.get('/api/table/:table', (req, res) => {
 
     loadSQLTable(req.params.table).then(table => {
@@ -261,6 +307,7 @@ app.get('/api/table/:table', (req, res) => {
 
 });
 
+// update a psql table somehow
 app.post('/api/update/:table', (req, res) => {
     let session = sessions.filter(session => {
         return session.token === req.body.token && session.expires >= Date.now();
@@ -292,9 +339,10 @@ app.post('/api/update/:table', (req, res) => {
             "reason": err
         }))
     });
-
 });
 
+// contentful
+// list events
 app.get('/api/contentful/events', (req, res) => {
     contenfulClient.getEntries({
         "content_type": "event",
@@ -306,7 +354,7 @@ app.get('/api/contentful/events', (req, res) => {
         res.send(JSON.stringify(events));
     });
 });
-
+// get a key/value pair (e.g., header image)
 app.get('/api/contentful/lookup/:key', (req, res) => {
     contenfulClient.getEntries({
         "content_type": "lookup"
@@ -334,6 +382,7 @@ app.get('/api/contentful/lookup/:key', (req, res) => {
     })
 });
 
+// reidrectors
 app.get('/stats', (req, res) => {
     res.redirect('http://jackbliss.co.uk/brighton-glicko');
 });
@@ -345,4 +394,5 @@ app.get('*', (req, res) => {
     res.sendFile(__dirname + '/dist/index.html');
 });
 
+const port = process.env.PORT || 3001;
 app.listen(port, () => console.log('Listening on port', port));

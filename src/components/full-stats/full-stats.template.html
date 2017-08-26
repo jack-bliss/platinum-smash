@@ -1,0 +1,27 @@
+<div id="full-stats">
+
+    <table>
+
+        <tr>
+            <td class="apex">
+
+            </td>
+            <td *ngFor="let player of players" class="col-head">
+                {{player.short_tag}}
+                <span class="full-tag">{{player.tag}}</span>
+            </td>
+        </tr>
+
+        <tr *ngFor="let player of players">
+            <td class="row-head">
+                {{player.short_tag}}
+                <span class="full-tag">{{player.tag}}</span>
+            </td>
+            <td *ngFor="let opp of players" class="cell" [ngClass]="adv(setCount(player.id, opp.id))">
+                {{setCount(player.id, opp.id)}}
+            </td>
+        </tr>
+
+    </table>
+
+</div>
