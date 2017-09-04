@@ -27,7 +27,7 @@ export class PlayerService{
         return new Promise(mainResolve => {
             Promise.all([
                 this.tiersService.getTiers(),
-                this.http.get('/api/table/players').toPromise()
+                this.http.get('/api/players').toPromise()
             ]).then(response => {
                 let data:any = response;
                 let players:any = data[1].json();

@@ -9,6 +9,7 @@ import { AddPlayerComponent }           from '../components/add-player/add-playe
 import { LogInComponent }               from "../components/log-in/log-in.component";
 import { EventManagerComponent }        from "../components/event-manager/event-manager.component";
 import { ViewMatchesComponent }         from "../components/view-matches/view-matches.component";
+import { FullStatsComponent }           from "../components/full-stats/full-stats.component";
 
 const routes: Routes = [
     /*{ path: '', redirectTo: '/players', pathMatch: 'full' },*/
@@ -46,7 +47,12 @@ const routes: Routes = [
     },
     { path: 'matches', children:
         [
-            { path: '', component: ViewMatchesComponent, pathMatch: 'full'}
+            { path: '', component: ViewMatchesComponent, pathMatch: 'full' }
+        ]
+    },
+    { path: 'league_stats', children:
+        [
+            { path: '', component: FullStatsComponent, pathMatch: 'full' }
         ]
     }
 ];

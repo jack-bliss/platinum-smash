@@ -1,0 +1,40 @@
+#full-stats{
+    margin: 10px 0 0;
+    td{
+        &.col-head{
+            text-align: center;
+            font-weight: bold;
+        }
+        &.row-head{
+            text-align: right;
+            font-weight: bold;
+        }
+        &.cell{
+            text-align: center;
+            &.win{
+                background-color: rgb(100, 255, 100);
+            }
+            &.even{
+                background-color: rgb(200, 200, 200);
+            }
+            &.loss{
+                background-color: rgb(255, 150, 150);
+            }
+        }
+        width: 60px;
+        position: relative;
+        .full-tag{
+            display: none;
+            position: absolute;
+            top: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            z-index: 20;
+            width: 200px;
+            text-align: center;
+        }
+        &:hover .full-tag{
+            display: inline-block;
+        }
+    }
+}

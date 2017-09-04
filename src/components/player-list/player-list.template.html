@@ -1,6 +1,24 @@
-<player
-    *ngFor="let player of list"
-    [selectable]="loggedIn"
-    [player]="player"
-    (click)=select(player.id)>
-</player>
+<div id='player-list'>
+
+    <div class="player">
+        <p class="position">
+            Position
+        </p>
+
+        <h4>Tag</h4>
+        <p class="wins">
+            Wins
+        </p>
+        <p class="losses">
+            Losses
+        </p>
+    </div>
+
+
+    <player
+        *ngFor="let player of list"
+        [selectable]="loggedIn"
+        [player]="player"
+        (click)=select(player.id)>
+    </player>
+</div>

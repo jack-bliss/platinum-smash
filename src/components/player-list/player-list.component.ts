@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 
-import { Component, OnInit } from "@angular/core";
+import { Component, ViewEncapsulation, OnInit } from "@angular/core";
 import { Player } from '../../classes/player';
 import { PlayerService } from "../../services/player.service";
 import { AuthService } from '../../services/auth.service';
@@ -8,7 +8,8 @@ import { AuthService } from '../../services/auth.service';
 @Component({
     selector: 'player-list',
     styleUrls: ['./player-list.style.scss'],
-    templateUrl: 'player-list.template.html'
+    templateUrl: 'player-list.template.html',
+    encapsulation: ViewEncapsulation.None
 })
 export class PlayerListComponent implements OnInit {
 
@@ -50,13 +51,24 @@ export class PlayerListComponent implements OnInit {
                     return b.rank-a.rank;
                 }
             })
+        } else if(field === 'wins'){
+            this.list.sort((a, b) => {
+                if(b.wins.length === a.wins.length){
+                    return a.losses.length - b.losses.length
+                } else {
+                    return b.wins.length - a.wins.length;
+                }
+            });
         }
     }
 
     ngOnInit(){
         this.playerService.getPlayers().then(players => {
             this.list = players;
-            this.sort('rank');
+            this.sort('wins');
+            this.list.forEach((player, index) => {
+                player.position = index+1;
+            });
         });
         this.loggedIn = AuthService.loggedIn();
         this.authService.subscribeLogin(() => {
