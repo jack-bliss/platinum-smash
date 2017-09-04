@@ -1,0 +1,32 @@
+#full-stats {
+  margin: 10px 0 0; }
+  #full-stats td {
+    width: 60px;
+    position: relative; }
+    #full-stats td.col-head {
+      text-align: center;
+      font-weight: bold; }
+    #full-stats td.row-head {
+      text-align: right;
+      font-weight: bold; }
+    #full-stats td.cell {
+      text-align: center; }
+      #full-stats td.cell.win {
+        background-color: #64ff64; }
+      #full-stats td.cell.even {
+        background-color: #c8c8c8; }
+      #full-stats td.cell.loss {
+        background-color: #ff9696; }
+    #full-stats td .full-tag {
+      display: none;
+      position: absolute;
+      top: 30px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      z-index: 20;
+      width: 200px;
+      text-align: center; }
+    #full-stats td:hover .full-tag {
+      display: inline-block; }
+
+/*# sourceMappingURL=full-stats.style.css.map */

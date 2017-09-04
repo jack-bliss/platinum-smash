@@ -11,7 +11,7 @@ ul {
     margin: 5px 0; }
 
 .selected {
-  border: 1px solid #CC3333;
+  border: 1px solid #FFE033;
   padding: 5px; }
   :not(.selected) {
     padding: 6px; }

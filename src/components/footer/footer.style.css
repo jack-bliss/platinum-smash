@@ -2,6 +2,6 @@
   text-align: center;
   margin: 20px 0 0; }
   .links p {
-    margin: 5px 0; }
+    display: inline-block; }
 
 /*# sourceMappingURL=footer.style.css.map */

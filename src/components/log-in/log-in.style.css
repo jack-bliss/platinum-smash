@@ -1,7 +1,11 @@
 form, div {
   text-align: center; }
 
-div {
-  color: red; }
+.already {
+  margin-top: 30px;
+  font-size: 20px; }
+
+.warn {
+  color: #FF9966; }
 
 /*# sourceMappingURL=log-in.style.css.map */

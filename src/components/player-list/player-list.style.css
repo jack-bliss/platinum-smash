@@ -1,3 +1,27 @@
-
+#player-list {
+  width: 700px;
+  margin: 0 auto; }
+  #player-list .player {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 'position tag wins losses'; }
+    #player-list .player.selectable {
+      cursor: pointer; }
+    #player-list .player.selected {
+      background-color: white; }
+    #player-list .player > * {
+      padding: 10px; }
+    #player-list .player h4 {
+      grid-area: tag; }
+    #player-list .player p.position {
+      grid-area: position;
+      text-align: right; }
+    #player-list .player p.wins {
+      grid-area: wins;
+      text-align: right; }
+    #player-list .player p.losses {
+      grid-area: losses;
+      text-align: right; }
 
 /*# sourceMappingURL=player-list.style.css.map */
