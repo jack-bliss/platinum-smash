@@ -10,7 +10,7 @@ import { Router, NavigationStart } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-    title: string = "Platinum Smash";
+    title: string = "Brighton Stock";
     ready: boolean = false;
     currentRoute: string = "";
 
