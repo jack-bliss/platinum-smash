@@ -1,3 +1,5 @@
+
+<h3 class="error" *ngIf="!!error">{{error}}</h3>
 <div id='player-list'>
 
     <div class="player">
@@ -15,10 +17,10 @@
     </div>
 
 
-    <player
+    <ps-player
         *ngFor="let player of list"
-        [selectable]="loggedIn"
+        [selectable]="loggedIn && eventSelected"
         [player]="player"
         (click)=select(player.id)>
-    </player>
+    </ps-player>
 </div>

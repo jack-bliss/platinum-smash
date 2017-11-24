@@ -68,13 +68,7 @@ function insertSQL(table, row){
     let qu = 'INSERT INTO '+table;
     qu += ' (';
 
-    qu += Object.keys(row).map(key => {
-        if(key === 'completedAt'){
-            return 'eventid';
-        } else {
-            return key;
-        }
-    }).join(', ');
+    qu += Object.keys(row).join(', ');
     qu += ') VALUES(';
 
     qu += Object.keys(row).map(key => {
@@ -89,6 +83,7 @@ function insertSQL(table, row){
         }
     }).join(', ');
     qu += ');';
+    console.log(qu);
     return new Promise((resolve, reject) => {
         pool.query(qu)
             .then(response => resolve(response))
@@ -261,13 +256,13 @@ app.get('/api/rebuild_players/:tag?', (req, res) => {
 
 // list all players with wins/losses
 app.get('/api/players', (req, res) => {
-    var grid = {
+    const grid = {
         wins: {},
         losses: {}
     };
     loadSQLTable('matches')
         .then(matches => {
-            for(var i = 0; i < matches.length; i++){
+            for(let i = 0; i < matches.length; i++){
                 if(grid.wins.hasOwnProperty(matches[i].winnerid)){
                     grid.wins[matches[i].winnerid].push(matches[i].loserid);
                 } else {
@@ -282,7 +277,7 @@ app.get('/api/players', (req, res) => {
             }
             return loadSQLTable('players');
         }).then(players => {
-            for(var i = 0; i < players.length; i++){
+            for(let i = 0; i < players.length; i++){
                 if(grid.wins.hasOwnProperty(players[i].id)){
                     players[i].wins = grid.wins[players[i].id];
                 } else {
@@ -389,7 +384,6 @@ app.get('/stats', (req, res) => {
 app.get('/fb', (req, res) => {
     res.redirect('https://www.facebook.com/BrightonStockSmash/');
 });
-
 app.get('*', (req, res) => {
     res.sendFile(__dirname + '/dist/index.html');
 });

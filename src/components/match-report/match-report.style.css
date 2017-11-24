@@ -12,14 +12,6 @@
     grid-area: title;
     text-align: center;
     font-size: 25px; }
-  .wrapper .player1Score {
-    grid-area: p1score; }
-  .wrapper .player2Score {
-    grid-area: p2score; }
-  .wrapper .player1 {
-    grid-area: p1info; }
-  .wrapper .player2 {
-    grid-area: p2info; }
   .wrapper button.submit {
     grid-area: submit;
     width: 160px;
@@ -46,5 +38,28 @@
     .wrapper .playerscore button.selected {
       background-color: green;
       color: white; }
+
+.player {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'position tag wins losses'; }
+  .player.selectable {
+    cursor: pointer; }
+  .player.selected {
+    background-color: white; }
+  .player > * {
+    padding: 10px; }
+  .player h4 {
+    grid-area: tag; }
+  .player p.position {
+    grid-area: position;
+    text-align: right; }
+  .player p.wins {
+    grid-area: wins;
+    text-align: right; }
+  .player p.losses {
+    grid-area: losses;
+    text-align: right; }
 
 /*# sourceMappingURL=match-report.style.css.map */

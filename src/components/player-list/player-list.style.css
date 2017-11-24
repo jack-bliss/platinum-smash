@@ -24,4 +24,8 @@
       grid-area: losses;
       text-align: right; }
 
+h3.error {
+  color: #FFC;
+  text-align: center; }
+
 /*# sourceMappingURL=player-list.style.css.map */

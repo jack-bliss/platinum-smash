@@ -1,76 +1,92 @@
-.wrapper{
+.wrapper {
 
-    display: grid;
-    width: 70%;
+  display: grid;
+  width: 70%;
+  margin: 0 auto;
+
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 50px 50px 50px;
+  grid-template-areas: "title  title  " "p1info p1score" "p2info p2score" "submit submit " "cancel cancel ";
+
+  align-items: center;
+
+  * {
+    font-size: 20px;
+  }
+
+  h3 {
+    grid-area: title;
+    text-align: center;
+    font-size: 25px;
+  }
+
+  button.submit {
+    grid-area: submit;
+    width: 160px;
     margin: 0 auto;
+    padding: 5px;
+  }
+  .message {
+    grid-area: submit;
+    text-align: center;
+    padding: 5px;
+  }
 
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: 50px 50px 50px;
-    grid-template-areas:
-        "title  title  "
-        "p1info p1score"
-        "p2info p2score"
-        "submit submit "
-        "cancel cancel ";
+  p {
+    grid-area: cancel;
+    text-align: center;
+    a {
+      font-size: 16px;
+    }
+  }
 
-    align-items: center;
+  .playerscore button {
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    background-color: white;
+    color: black;
+    outline: none;
+    border: 1px solid black;
+    cursor: pointer;
+    &.selected {
+      background-color: green;
+      color: white;
+    }
+  }
 
-    *{
-        font-size: 20px;
-    }
-    
-    h3{
-        grid-area: title;
-        text-align: center;
-        font-size: 25px;
-    }
+}
 
-    .player1Score{
-        grid-area: p1score;
-    }
-    .player2Score{
-        grid-area: p2score;
-    }
-    .player1{
-        grid-area: p1info;
-    }
-    .player2{
-        grid-area: p2info;
-    }
+.player {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'position tag wins losses';
 
-    button.submit{
-        grid-area: submit;
-        width: 160px;
-        margin: 0 auto;
-        padding: 5px;
-    }
-    .message{
-        grid-area: submit;
-        text-align: center;
-        padding: 5px;
-    }
+  &.selectable {
+    cursor: pointer;
+  }
+  &.selected {
+    background-color: white;
+  }
 
-    p{
-        grid-area: cancel;
-        text-align: center;
-        a{
-            font-size: 16px;
-        }
-    }
+  > * {
+    padding: 10px;
+  }
 
-    .playerscore button{
-        width: 26px;
-        height: 26px;
-        border-radius: 13px;
-        background-color: white;
-        color: black;
-        outline: none;
-        border: 1px solid black;
-        cursor: pointer;
-        &.selected{
-            background-color: green;
-            color: white;
-        }
-    }
-
+  h4 {
+    grid-area: tag;
+  }
+  p.position {
+    grid-area: position;
+    text-align: right;
+  }
+  p.wins {
+    grid-area: wins;
+    text-align: right;
+  }
+  p.losses {
+    grid-area: losses;
+    text-align: right;
+  }
 }
