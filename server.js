@@ -384,6 +384,9 @@ app.get('/stats', (req, res) => {
 app.get('/fb', (req, res) => {
     res.redirect('https://www.facebook.com/BrightonStockSmash/');
 });
+app.get('/amnesty', (req, res) => {
+    res.redirect('https://www.facebook.com/events/132255724104523/');
+});
 app.get('*', (req, res) => {
     res.sendFile(__dirname + '/dist/index.html');
 });
