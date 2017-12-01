@@ -379,7 +379,10 @@ app.get('/api/contentful/lookup/:key', (req, res) => {
 
 // reidrectors
 app.get('/stats', (req, res) => {
-    res.redirect('http://jackbliss.co.uk/brighton-glicko');
+    res.redirect('https://docs.google.com/spreadsheets/d/1REA9dtbMEubxwO_U1bbGAjuXY7VL3cbpqeFbZvW4fhU/edit#gid=0');
+});
+app.get('/brackets', (req, res) => {
+    res.redirect('http://bs.challonge.com/');
 });
 app.get('/fb', (req, res) => {
     res.redirect('https://www.facebook.com/BrightonStockSmash/');
